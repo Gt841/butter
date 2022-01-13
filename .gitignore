@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+# 屏蔽application-test。yml
+src/main/resources/application-test.yml
 
 ### STS ###
 .apt_generated
