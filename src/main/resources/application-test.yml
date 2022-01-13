@@ -1,0 +1,16 @@
+gzhproperties:
+  #  当前服务地址接收微信code地址
+  servUrl: http://公众号配置网址/本项目/wx/callBack
+  #  返回地址 具体业务地址.
+  reUrl: 具体业务地址
+  #  公众号id
+  appId: 申请的公众号id
+  #  公众号密钥
+  appKey: 公众号密钥
+
+#微信小程序参数
+wxmpproperties:
+  #  小程序认证id
+  appId: 小程序id
+  #  小程序密钥
+  appkey: 小程序secret
