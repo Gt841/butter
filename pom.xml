@@ -48,7 +48,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.7.17</version>
+            <version>5.7.18</version>
         </dependency>
         <!--spring context-->
         <dependency>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.76</version>
+            <version>1.2.79</version>
         </dependency>
 
         <!--httpservlet-->
@@ -84,7 +84,8 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.62</version>
+            <version>1.69</version>
+            <!--<version>1.62</version>-->
         </dependency>
     </dependencies>
 
