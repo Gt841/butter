@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+//微信小程序认证方式
 @RestController
 @RequestMapping("/wxmp")
 public class WxmpOauthApi {

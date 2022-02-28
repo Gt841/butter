@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 
 import java.io.IOException;
 
-
+//微信公众号认证
 @Controller
 @RequestMapping({"/wxgzh"})
 public class WxgzhOauthApi {

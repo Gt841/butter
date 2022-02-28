@@ -14,3 +14,24 @@ wxmpproperties:
   appId: 小程序id
   #  小程序密钥
   appkey: 小程序secret
+
+#支付宝参数
+zfbproperties:
+  #  应用id
+  appId: 支付宝应用id
+  #  私钥
+  priKey: 应用私钥
+  #  支付宝公钥
+  pubKey: 支付宝公钥
+  #  加密方式
+  signType: RSA2
+  #  当前服务地址接收code地址
+  servUrl: 接收code地址
+  #  返回地址 具体业务地址.
+  reUrl: 具体业务地址
+
+#  应用基础配置
+appproperties:
+#  http://公众号配置网址/本项目/
+  url: 本项目所在域名/
+  app: 本项目名/
