@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class AppProps {
     private String url;
     private String app;
+    private String reUrl;
 }

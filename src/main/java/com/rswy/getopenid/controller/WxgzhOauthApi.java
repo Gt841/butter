@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.rswy.getopenid.domain.AppProps;
 import com.rswy.getopenid.domain.GZHProps;
 import com.rswy.getopenid.utils.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class WxgzhOauthApi {
 
     @Autowired
     private GZHProps GZHProps;
+
+    @Autowired
+    private AppProps appProps;
 
     /**
      * 将微信公众号发送的请求转发到微信官方
@@ -38,7 +42,7 @@ public class WxgzhOauthApi {
                 +"&value=" + value1
                 +"&appId="+ GZHProps.getAppId()
                 +"&appSecret="+ GZHProps.getAppKey()
-                +"&callbackUrl="+ GZHProps.getReUrl();
+                +"&callbackUrl="+ appProps.getReUrl();
         System.out.println(callback);
 
         System.out.println(URLEncoder.encode(callback, "UTF-8"));

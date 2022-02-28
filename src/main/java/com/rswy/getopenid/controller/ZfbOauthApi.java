@@ -6,6 +6,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.rswy.getopenid.domain.AppProps;
 import com.rswy.getopenid.domain.ZFBProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ import java.util.Map;
 public class ZfbOauthApi {
     @Autowired
     private ZFBProps zfbProps;
+    @Autowired
+    private AppProps appProps;
 
     /**
      * 初始拼接支付宝访问地址
@@ -62,7 +65,7 @@ public class ZfbOauthApi {
             AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(request1);
             System.out.println(oauthTokenResponse.getUserId());
             System.out.println(oauthTokenResponse.getAccessToken());
-            response.sendRedirect(zfbProps.getReUrl()+"?openid="+oauthTokenResponse.getUserId()+
+            response.sendRedirect(appProps.getReUrl()+"?openid="+oauthTokenResponse.getUserId()+
                     "&key="+key1+"&value="+value1);
         } catch (AlipayApiException e) {
             //处理异常

@@ -35,3 +35,4 @@ appproperties:
 #  http://公众号配置网址/本项目/
   url: 本项目所在域名/
   app: 本项目名/
+  reUrl: 具体业务地址
