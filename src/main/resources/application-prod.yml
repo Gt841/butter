@@ -36,3 +36,6 @@ appproperties:
   url: 本项目所在域名/
   app: 本项目名/
   reUrl: 具体业务地址
+  reMap:
+    test: 测试用具体业务地址
+    prod: 生产使用具体业务地址

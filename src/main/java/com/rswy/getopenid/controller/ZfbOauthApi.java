@@ -65,7 +65,7 @@ public class ZfbOauthApi {
             AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(request1);
             System.out.println(oauthTokenResponse.getUserId());
             System.out.println(oauthTokenResponse.getAccessToken());
-            response.sendRedirect(appProps.getReUrl()+"?openid="+oauthTokenResponse.getUserId()+
+            response.sendRedirect(appProps.getReMap().get(key1)+"?openid="+oauthTokenResponse.getUserId()+
                     "&key="+key1+"&value="+value1);
         } catch (AlipayApiException e) {
             //处理异常

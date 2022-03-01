@@ -50,7 +50,10 @@ public class TestApi {
     //判断使用浏览器,引流至不同认证方式
     @RequestMapping({"/testBrowser/{key1}/{value1}"})
     public void testBrowser(HttpServletRequest req, HttpServletResponse resp,@PathVariable("key1") String key1,@PathVariable("value1")String value1) throws IOException {
-
+        if (!appProps.getReMap().containsKey(key1)){
+            resp.sendRedirect(appProps.getUrl() + appProps.getApp()+"test?error=error");
+            return ;
+        }
         String userAgent = req.getHeader("user-agent");
         if (userAgent != null && userAgent.contains("AlipayClient")) {
             resp.sendRedirect(appProps.getUrl() + appProps.getApp()+"zfbwy/"+key1+"/"+value1);

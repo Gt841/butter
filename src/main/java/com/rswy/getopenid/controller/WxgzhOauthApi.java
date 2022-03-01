@@ -37,12 +37,13 @@ public class WxgzhOauthApi {
     @RequestMapping({"/{key1}/{value1}"})
     public void getOauthCode(HttpServletResponse response,@PathVariable("key1") String key1,@PathVariable("value1")String value1) throws IOException{
         //callback地址
+        //String callback = GZHProps.getServUrl()+
         String callback = GZHProps.getServUrl()+
                 "/?key="+key1
                 +"&value=" + value1
                 +"&appId="+ GZHProps.getAppId()
                 +"&appSecret="+ GZHProps.getAppKey()
-                +"&callbackUrl="+ appProps.getReUrl();
+                +"&callbackUrl="+ appProps.getReMap().get(key1);
         System.out.println(callback);
 
         System.out.println(URLEncoder.encode(callback, "UTF-8"));
