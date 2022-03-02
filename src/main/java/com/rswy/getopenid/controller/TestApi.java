@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +63,14 @@ public class TestApi {
         }else{
             resp.sendRedirect(appProps.getUrl() + appProps.getApp()+"test?error=error");
         }
+    }
+
+    //重定向到指定应用
+    @RequestMapping("/redirect")
+    @ResponseBody
+    public void testBrowser(HttpServletRequest req, HttpServletResponse resp,String redirect) throws IOException {
+        String param = URLDecoder.decode(redirect, "utf-8");
+        resp.sendRedirect(param);
     }
 
 }
