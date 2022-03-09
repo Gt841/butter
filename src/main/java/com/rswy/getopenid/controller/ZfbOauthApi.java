@@ -41,10 +41,8 @@ public class ZfbOauthApi {
     public void getOauthCode(HttpServletResponse response, @PathVariable("key1") String key1, @PathVariable("value1")String value1) throws IOException {
         System.out.println(key1);
         //callback地址
-        String callback = zfbProps.getServUrl()+"/"+key1+"/"+value1;
-        System.out.println(callback);
+        String callback = appProps.getUrl()+appProps.getApp()+zfbProps.getServUrl()+"/"+key1+"/"+value1;
 
-        System.out.println(URLEncoder.encode(callback, "UTF-8"));
         String url = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id="+ zfbProps.getAppId()
                 +"&scope=auth_base&"
                 +"&redirect_uri="+URLEncoder.encode(callback,"UTF-8");
@@ -52,9 +50,9 @@ public class ZfbOauthApi {
         response.sendRedirect(url);
     }
 
-    @RequestMapping({"/useCode/{key1}/{value1}"})
+    @RequestMapping({"/useCode/{key}/{value}"})
     @ResponseBody
-    public void useCode(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false) Map<String,Object> param,@PathVariable("key1") String key1,@PathVariable("value1")String value1) throws IOException{
+    public void useCode(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false) Map<String,Object> param,@PathVariable("key") String key,@PathVariable("value")String value) throws IOException{
         System.out.println(param);
 
         AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", zfbProps.getAppId(), zfbProps.getPriKey(), "json", "utf-8", zfbProps.getPubKey(), zfbProps.getSignType());
@@ -65,8 +63,14 @@ public class ZfbOauthApi {
             AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(request1);
             System.out.println(oauthTokenResponse.getUserId());
             System.out.println(oauthTokenResponse.getAccessToken());
-            response.sendRedirect(appProps.getReMap().get(key1)+"?openid="+oauthTokenResponse.getUserId()+
-                    "&key="+key1+"&value="+value1);
+            //判断系统内是否存在该应用参数
+            if (!appProps.getReMap().containsKey(key)){
+                response.sendRedirect(appProps.getUrl() + appProps.getApp()+"err2/"+"?openId=" + oauthTokenResponse.getUserId() +
+                        "&key="+key+"&value="+value);
+                return ;
+            }
+            response.sendRedirect(appProps.getReMap().get(key)+"/#/?openId="+oauthTokenResponse.getUserId()+
+                    "&key="+key+"&value="+value);
         } catch (AlipayApiException e) {
             //处理异常
             e.printStackTrace();
