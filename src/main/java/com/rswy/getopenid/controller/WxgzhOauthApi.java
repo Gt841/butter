@@ -30,17 +30,17 @@ public class WxgzhOauthApi {
      * 获取code
      *
      * @param response
-     * @param key1
-     * @param value1
+     * @param key
+     * @param value
      * @throws IOException
      */
-    @RequestMapping({"/{key1}/{value1}"})
-    public void getOauthCode(HttpServletResponse response,@PathVariable("key1") String key1,@PathVariable("value1")String value1) throws IOException{
+    @RequestMapping({"/{key}/{value}"})
+    public void getOauthCode(HttpServletResponse response,@PathVariable("key") String key,@PathVariable("value")String value) throws IOException{
         //callback地址
         //String callback = GZHProps.getServUrl()+
         String callback = appProps.getUrl()+appProps.getApp()+GZHProps.getServUrl()+
-                "/?key="+key1
-                +"&value=" + value1
+                "/?key="+key
+                +"&value=" + value
                 +"&appId="+ GZHProps.getAppId()
                 +"&appSecret="+ GZHProps.getAppKey()
                 ;
