@@ -8,6 +8,8 @@ import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.rswy.getopenid.domain.AppProps;
 import com.rswy.getopenid.domain.ZFBProps;
+import com.rswy.getopenid.domain.entry.RulEntry;
+import com.rswy.getopenid.service.RulService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,8 @@ public class ZfbOauthApi {
     private ZFBProps zfbProps;
     @Autowired
     private AppProps appProps;
+    @Autowired
+    private RulService rulService;
 
     /**
      * 初始拼接支付宝访问地址
@@ -54,7 +58,7 @@ public class ZfbOauthApi {
     @ResponseBody
     public void useCode(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false) Map<String,Object> param,@PathVariable("key") String key,@PathVariable("value")String value) throws IOException{
         System.out.println(param);
-
+        String url = "";
         AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", zfbProps.getAppId(), zfbProps.getPriKey(), "json", "utf-8", zfbProps.getPubKey(), zfbProps.getSignType());
         AlipaySystemOauthTokenRequest request1 = new AlipaySystemOauthTokenRequest();
         request1.setCode(String.valueOf(param.get("auth_code")));
@@ -63,14 +67,18 @@ public class ZfbOauthApi {
             AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(request1);
             System.out.println(oauthTokenResponse.getUserId());
             System.out.println(oauthTokenResponse.getAccessToken());
-            //判断系统内是否存在该应用参数
-            if (!appProps.getReMap().containsKey(key)){
-                response.sendRedirect(appProps.getUrl() + appProps.getApp()+"err2/"+"?openId=" + oauthTokenResponse.getUserId() +
-                        "&key="+key+"&value="+value);
-                return ;
+
+            //判断系统内存在相关记录
+            RulEntry rul = rulService.findRul(key);
+            if (rul == null){
+                url +=appProps.getErrKeyUrl();
+            }else{
+                url += rul.getReRul();
             }
-            response.sendRedirect(appProps.getReMap().get(key)+"/#/?openId="+oauthTokenResponse.getUserId()+
-                    "&key="+key+"&value="+value);
+            url += "?openId=" + oauthTokenResponse.getUserId() +
+                    "&key="+key+"&value="+value;
+            response.sendRedirect(url);
+
         } catch (AlipayApiException e) {
             //处理异常
             e.printStackTrace();

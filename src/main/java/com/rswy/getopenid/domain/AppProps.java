@@ -12,6 +12,6 @@ import java.util.Map;
 public class AppProps {
     private String url;
     private String app;
-    private String reUrl;
-    private Map<String,String> reMap;
+    private String errKeyUrl;
+    private String errBrowserUrl;
 }

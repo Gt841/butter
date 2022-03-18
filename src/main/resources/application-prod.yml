@@ -1,6 +1,6 @@
 gzhproperties:
   #  当前服务地址接收微信code地址
-  servUrl: http://公众号配置网址/本项目/wx/callBack
+  servUrl: wx/callBack
   #  返回地址 具体业务地址.
   reUrl: 具体业务地址
   #  公众号id
@@ -26,16 +26,25 @@ zfbproperties:
   #  加密方式
   signType: RSA2
   #  当前服务地址接收code地址
-  servUrl: 接收code地址
-  #  返回地址 具体业务地址.
-  reUrl: 具体业务地址
+  servUrl: zfbwy/useCode
 
 #  应用基础配置
 appproperties:
 #  http://公众号配置网址/本项目/
   url: 本项目所在域名/
   app: 本项目名/
-  reUrl: 具体业务地址
-  reMap:
-    test: 测试用具体业务地址
-    prod: 生产使用具体业务地址
+  errKeyUrl: 没有参数时跳转地址
+  errBrowserUrl: 提示微信支付宝跳转地址
+#数据库连接参数
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: 具体的数据库
+    username: 账户
+    password: 密码
+
+#mybatis配置
+mybatis:
+#  加载mapper文件地址
+  mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
+  checkConfigLocation: false

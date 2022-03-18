@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rswy.getopenid.mapper.RulMapper">
+
+    <resultMap type="com.rswy.getopenid.domain.entry.RulEntry" id="rulResult">
+        <result property="id"    column="id"    />
+        <result property="rulKey"    column="rul_key"    />
+        <result property="reRul"    column="re_rul"    />
+    </resultMap>
+
+    <select id="listAllRul" resultMap="rulResult">
+        select id,rul_key,re_rul from rul_map
+    </select>
+
+    <select id="findRul" resultMap="rulResult" parameterType="string">
+        select id,rul_key,re_rul from rul_map where rul_key = #{rul_key}
+    </select>
+
+</mapper>
