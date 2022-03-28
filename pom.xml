@@ -121,7 +121,7 @@
 
     <build>
         <!--指定最终包名-->
-        <finalName>testOpenid</finalName>
+        <finalName>${project.finalname}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -137,5 +137,22 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+                <project.finalname>testOpenid</project.finalname>
+            </properties>
+        </profile>
+        <profile>
+            <id>rswy</id>
+            <properties>
+                <profiles.active>rswy</profiles.active>
+                <project.finalname>openid</project.finalname>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

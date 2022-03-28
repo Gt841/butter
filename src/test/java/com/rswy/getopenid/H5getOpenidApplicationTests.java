@@ -12,8 +12,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootTest
 class H5getOpenidApplicationTests {
+
+    @Autowired
+    private AppProps appProps;
     @Test
     void contextLoads() {
+        System.out.println(appProps);
     }
 
 }

@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 # 屏蔽application-test。yml
 src/main/resources/application-test.yml
-
+src/main/resources/application-rswy.yml
 ### STS ###
 .apt_generated
 .classpath

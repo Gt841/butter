@@ -17,19 +17,7 @@ public class TestApi {
     @Autowired
     private AppProps appProps;
 
-    //判断使用浏览器,引流至不同认证方式
-    @RequestMapping({"/auoth/{key}/{value}"})
-    public void testBrowser(HttpServletRequest req, HttpServletResponse resp,@PathVariable("key") String key,@PathVariable("value")String value) throws IOException {
-        String userAgent = req.getHeader("user-agent");
-        if (userAgent != null && userAgent.contains("AlipayClient")) {
-            resp.sendRedirect(appProps.getUrl() + appProps.getApp()+"zfbwy/"+key+"/"+value);
-        }else if (userAgent != null && userAgent.contains("MicroMessenger")) {
-            resp.sendRedirect(appProps.getUrl() + appProps.getApp()+"wxgzh/"+key+"/"+value);
-        }else{
-            String error="请使用微信或支付宝打开本应用";
-            resp.sendRedirect(appProps.getErrBrowserUrl());
-        }
-    }
+
 
     @GetMapping("/errBrowser")
     public JSONObject errBrowser(@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
@@ -49,23 +37,36 @@ public class TestApi {
         json.put("data",data);
         return json;
     }
-    @GetMapping("/test")
-    public JSONObject testGet(@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
+
+    @RequestMapping(value="/test")
+    @ResponseBody
+    public JSONObject testRequest(HttpServletRequest request,@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
         JSONObject json = new JSONObject();
-        json.put("method","get");
+        json.put("method",request.getMethod());
         json.put("param",param);
         json.put("data",data);
+        //request
+        json.put("url",request.getRequestURL());
         return json;
     }
 
-    @PostMapping("/test")
-    public JSONObject testPost(@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
-        JSONObject json = new JSONObject();
-        json.put("method","post");
-        json.put("param",param);
-        json.put("data",data);
-        return json;
-    }
+    //@GetMapping("/test")
+    //public JSONObject testGet(@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
+    //    JSONObject json = new JSONObject();
+    //    json.put("method","get");
+    //    json.put("param",param);
+    //    json.put("data",data);
+    //    return json;
+    //}
+    //
+    //@PostMapping("/test")
+    //public JSONObject testPost(@RequestParam(required = false) Map<String,Object> param , @RequestBody(required = false) Map<String,Object> data){
+    //    JSONObject json = new JSONObject();
+    //    json.put("method","post");
+    //    json.put("param",param);
+    //    json.put("data",data);
+    //    return json;
+    //}
 
     @RequestMapping("/getBrowser")
     public void getBrowser(HttpServletRequest req, HttpServletResponse resp) throws IOException {

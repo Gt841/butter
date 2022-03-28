@@ -31,8 +31,8 @@ zfbproperties:
 #  应用基础配置
 appproperties:
 #  http://公众号配置网址/本项目/
-  url: 本项目所在域名/
-  app: 本项目名/
+  url: http://公众号配置网址/
+  app: @project.finalname@/
   errKeyUrl: 没有参数时跳转地址
   errBrowserUrl: 提示微信支付宝跳转地址
 #数据库连接参数
